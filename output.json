@@ -1,59 +1,80 @@
 {
   "candidate_search_strategy": {
     "target_backgrounds": [
-      "Senior/Staff backend engineer at an inference or model-serving company",
-      "Backend engineer at a high-throughput data infra startup (Kafka/Confluent, Materialize, Estuary)",
-      "ML platform engineer who has owned latency SLOs in production",
-      "Distributed systems engineer from a payments or ad-tech company comfortable with <100ms latency"
+      "Senior backend engineers (L5/IC4+) from ML infrastructure or platform teams",
+      "Staff engineers who built distributed systems for model serving or inference",
+      "Backend engineers from real-time data processing or streaming platforms",
+      "Infrastructure engineers who worked on API gateways or high-throughput services at AI/ML companies",
+      "Platform engineers from developer tools or observability companies with distributed systems experience",
+      "Senior backend engineers from fintech or adtech with low-latency system design experience"
     ],
     "target_companies": [
-      "Anyscale",
-      "Modal",
-      "Together AI",
-      "Fireworks AI",
+      "OpenAI",
+      "Anthropic",
       "Replicate",
+      "Modal",
+      "Anyscale",
+      "Databricks",
+      "Hugging Face",
+      "Scale AI",
+      "Together AI",
       "Baseten",
-      "OctoAI",
-      "Cohere infra team",
-      "early-stage AI infra startups (seed to Series B)",
-      "Stripe / Cloudflare / Cash App backend (latency-critical experience)"
+      "Early-stage AI infrastructure startups (Series A-B)",
+      "Cloud infrastructure companies (AWS SageMaker, Google Vertex AI teams)",
+      "High-frequency trading firms with low-latency systems",
+      "Streaming data platforms like Confluent or real-time analytics companies",
+      "Developer infrastructure startups focused on ML/AI tooling"
     ],
     "keywords": [
-      "inference",
-      "model serving",
-      "vLLM",
-      "Triton",
-      "TGI",
-      "GPU scheduling",
-      "gRPC",
-      "Kafka",
-      "Redis",
-      "low-latency",
-      "distributed systems",
       "Python",
       "Go",
-      "CUDA"
+      "Golang",
+      "distributed systems",
+      "Kafka",
+      "Redis",
+      "gRPC",
+      "backend infrastructure",
+      "model serving",
+      "inference",
+      "Triton",
+      "vLLM",
+      "TGI",
+      "GPU infrastructure",
+      "CUDA",
+      "low latency",
+      "high throughput",
+      "microservices",
+      "API design",
+      "system architecture",
+      "ML infrastructure",
+      "AI infrastructure",
+      "observability",
+      "Prometheus",
+      "Grafana",
+      "real-time systems",
+      "event-driven architecture"
     ],
-    "seniority": "Senior to Staff (5+ years)"
+    "seniority": "Senior to Staff level (5-10 years experience). Strong preference for candidates at Senior Engineer (IC4/L5) with 5-7 years who have demonstrated ownership of critical distributed systems and comfort with architectural decisions in ambiguous, early-stage environments. Staff-level candidates (IC5/L6) with 8+ years also appropriate if they're excited about hands-on building at Series A stage."
   },
-  "boolean_query": "(\"inference\" OR \"model serving\" OR \"vLLM\" OR \"Triton\") AND (Python OR Go) AND (Kafka OR Redis OR gRPC) AND (startup OR \"Series A\" OR \"Series B\") NOT (intern OR junior)",
+  "boolean_query": "(\"Senior Engineer\" OR \"Staff Engineer\" OR \"Senior Software Engineer\" OR \"Backend Engineer\" OR \"Infrastructure Engineer\" OR \"Platform Engineer\") AND (Python OR Go OR Golang) AND (\"distributed systems\" OR \"model serving\" OR inference OR \"ML infrastructure\" OR \"AI infrastructure\" OR Kafka OR gRPC OR \"low latency\" OR \"high throughput\" OR \"real-time systems\") AND (OpenAI OR Anthropic OR Replicate OR Modal OR Anyscale OR Databricks OR \"Hugging Face\" OR \"Scale AI\" OR Confluent OR \"HFT\" OR \"high frequency trading\" OR fintech OR adtech OR observability)",
   "outreach_message": {
-    "outreach_message": "Saw your work on low-latency model serving \u2014 we're building the inference routing system at a Series A and going from 10M to 1B requests/day. Worth a 15-min chat?",
-    "specific_detail": "inference routing system",
-    "character_count": 162,
-    "attempts": 2
+    "outreach_message": "Saw you've worked on low-latency distributed systems \u2014 we're building the inference routing layer for production LLM apps (Series A, 14 people, SF). Scaling 10M\u21921B requests/day. Open to a quick chat?",
+    "specific_detail": "low-latency distributed systems",
+    "character_count": 199,
+    "attempts": 1
   },
   "candidate_summary": {
-    "name": "Priya Raghavan",
-    "current_company": "Anyscale",
+    "name": "Maya Patel",
+    "current_company": "Modal",
     "key_skills": [
-      "vLLM and Triton model serving",
-      "Python + Go backend at scale",
-      "GPU scheduling and inference routing",
-      "gRPC and Kafka in production"
+      "Python",
+      "distributed systems",
+      "model serving",
+      "gRPC",
+      "observability"
     ],
-    "fit_reason": "Built and operated the inference autoscaling layer at Anyscale, directly relevant to the 10M\u21921B requests/day scaling challenge and the latency-critical routing path.",
-    "concerns": "Has only worked at one large-ish company \u2014 may need a calibration conversation about operating at 14-person startup tempo and ambiguity."
+    "fit_reason": "Built high-throughput request routing and model serving infrastructure at Modal with 6 years backend experience. Has designed low-latency distributed systems for GPU workloads and worked at early-stage AI infrastructure startup, aligning well with Series A environment and architecture ownership expectations.",
+    "concerns": "Profile shows primarily Python expertise with limited evidence of Go/Golang experience, which is listed as a core requirement alongside Python. May require ramp-up time if the team's critical infrastructure is Go-based."
   },
   "pipeline_trace": [
     {
@@ -68,35 +89,28 @@
       "action": "generate_search_strategy",
       "attempt": 1,
       "result": "pass",
-      "note": "seniority=Senior to Staff (5+ years)"
+      "note": "seniority=Senior to Staff level (5-10 years experience). Strong preference for candidates at Senior Engineer (IC4/L5) with 5-7 years who have demonstrated ownership of critical distributed systems and comfort with architectural decisions in ambiguous, early-stage environments. Staff-level candidates (IC5/L6) with 8+ years also appropriate if they're excited about hands-on building at Series A stage."
     },
     {
       "step": 3,
       "action": "generate_boolean_query",
       "attempt": 1,
       "result": "pass",
-      "note": "chars=167 balanced_parens=True has_and=True has_or=True"
+      "note": "chars=550 balanced_parens=True has_and=True has_or=True"
     },
     {
       "step": 4,
       "action": "generate_outreach_message",
       "attempt": 1,
-      "result": "retry",
-      "note": "message was 302 chars (limit: 300)"
-    },
-    {
-      "step": 4,
-      "action": "generate_outreach_message",
-      "attempt": 2,
       "result": "pass",
-      "note": "chars=162, detail='inference routing system'"
+      "note": "chars=199, detail='low-latency distributed systems'"
     },
     {
       "step": 5,
       "action": "generate_candidate_summary",
       "attempt": 1,
       "result": "pass",
-      "note": "candidate=Priya Raghavan @ Anyscale"
+      "note": "candidate=Maya Patel @ Modal"
     }
   ]
 }
