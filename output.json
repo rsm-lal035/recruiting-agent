@@ -1,0 +1,102 @@
+{
+  "candidate_search_strategy": {
+    "target_backgrounds": [
+      "Senior/Staff backend engineer at an inference or model-serving company",
+      "Backend engineer at a high-throughput data infra startup (Kafka/Confluent, Materialize, Estuary)",
+      "ML platform engineer who has owned latency SLOs in production",
+      "Distributed systems engineer from a payments or ad-tech company comfortable with <100ms latency"
+    ],
+    "target_companies": [
+      "Anyscale",
+      "Modal",
+      "Together AI",
+      "Fireworks AI",
+      "Replicate",
+      "Baseten",
+      "OctoAI",
+      "Cohere infra team",
+      "early-stage AI infra startups (seed to Series B)",
+      "Stripe / Cloudflare / Cash App backend (latency-critical experience)"
+    ],
+    "keywords": [
+      "inference",
+      "model serving",
+      "vLLM",
+      "Triton",
+      "TGI",
+      "GPU scheduling",
+      "gRPC",
+      "Kafka",
+      "Redis",
+      "low-latency",
+      "distributed systems",
+      "Python",
+      "Go",
+      "CUDA"
+    ],
+    "seniority": "Senior to Staff (5+ years)"
+  },
+  "boolean_query": "(\"inference\" OR \"model serving\" OR \"vLLM\" OR \"Triton\") AND (Python OR Go) AND (Kafka OR Redis OR gRPC) AND (startup OR \"Series A\" OR \"Series B\") NOT (intern OR junior)",
+  "outreach_message": {
+    "outreach_message": "Saw your work on low-latency model serving \u2014 we're building the inference routing system at a Series A and going from 10M to 1B requests/day. Worth a 15-min chat?",
+    "specific_detail": "inference routing system",
+    "character_count": 162,
+    "attempts": 2
+  },
+  "candidate_summary": {
+    "name": "Priya Raghavan",
+    "current_company": "Anyscale",
+    "key_skills": [
+      "vLLM and Triton model serving",
+      "Python + Go backend at scale",
+      "GPU scheduling and inference routing",
+      "gRPC and Kafka in production"
+    ],
+    "fit_reason": "Built and operated the inference autoscaling layer at Anyscale, directly relevant to the 10M\u21921B requests/day scaling challenge and the latency-critical routing path.",
+    "concerns": "Has only worked at one large-ish company \u2014 may need a calibration conversation about operating at 14-person startup tempo and ambiguity."
+  },
+  "pipeline_trace": [
+    {
+      "step": 1,
+      "action": "extract_jd_signals",
+      "attempt": 1,
+      "result": "pass",
+      "note": "role_type=Senior Backend Engineer \u2014 AI Infrastructure"
+    },
+    {
+      "step": 2,
+      "action": "generate_search_strategy",
+      "attempt": 1,
+      "result": "pass",
+      "note": "seniority=Senior to Staff (5+ years)"
+    },
+    {
+      "step": 3,
+      "action": "generate_boolean_query",
+      "attempt": 1,
+      "result": "pass",
+      "note": "chars=167 balanced_parens=True has_and=True has_or=True"
+    },
+    {
+      "step": 4,
+      "action": "generate_outreach_message",
+      "attempt": 1,
+      "result": "retry",
+      "note": "message was 302 chars (limit: 300)"
+    },
+    {
+      "step": 4,
+      "action": "generate_outreach_message",
+      "attempt": 2,
+      "result": "pass",
+      "note": "chars=162, detail='inference routing system'"
+    },
+    {
+      "step": 5,
+      "action": "generate_candidate_summary",
+      "attempt": 1,
+      "result": "pass",
+      "note": "candidate=Priya Raghavan @ Anyscale"
+    }
+  ]
+}

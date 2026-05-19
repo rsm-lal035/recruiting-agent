@@ -1,0 +1,23 @@
+Senior Backend Engineer — AI Infrastructure
+
+About us:
+We're a Series A startup building the inference layer for production LLM applications. Our customers run mission-critical AI workloads on us and need sub-100ms latency at scale. We're a team of 14, based in San Francisco, profitable, and growing fast.
+
+What you'll do:
+- Design and build the core inference routing system that decides which model serves which request
+- Own latency-critical paths end to end: from gRPC ingress to GPU scheduling
+- Work directly with the founding team on architecture decisions that will define the company for the next 3 years
+- Help scale from 10M to 1B requests/day over the next 18 months
+
+You should have:
+- 5+ years building backend systems in Python or Go
+- Experience with high-throughput, low-latency distributed systems (Kafka, Redis, gRPC, or similar)
+- Familiarity with GPU infrastructure, CUDA, or model serving (Triton, vLLM, TGI) is a strong plus
+- Comfort operating in an ambiguous, fast-moving startup environment
+
+Bonus:
+- Past experience at an early-stage startup
+- Open-source contributions to ML infrastructure projects
+- Strong opinions on observability and what "production-ready" actually means
+
+We're not looking for a perfect match on every bullet. We're looking for someone who gets excited about building the boring-but-critical plumbing that lets AI products actually ship.
