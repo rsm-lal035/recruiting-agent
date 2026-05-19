@@ -36,9 +36,7 @@ class RecruitingPipeline:
         self.llm = llm
         self.trace: list[dict[str, Any]] = []
 
-    # ------------------------------------------------------------------ #
     # Trace helpers
-    # ------------------------------------------------------------------ #
     def _log_step(
         self,
         step: int,
@@ -64,9 +62,7 @@ class RecruitingPipeline:
             note,
         )
 
-    # ------------------------------------------------------------------ #
     # Step 1: extract_jd_signals
-    # ------------------------------------------------------------------ #
     def extract_jd_signals(self, jd: str, hm_notes: Optional[str]) -> dict[str, Any]:
         prompt = prompts.EXTRACT_JD_SIGNALS.format(
             jd=jd,
@@ -86,9 +82,7 @@ class RecruitingPipeline:
             self._log_step(1, "extract_jd_signals", 1, "fail", str(exc))
             raise PipelineError(f"Step 1 failed: {exc}") from exc
 
-    # ------------------------------------------------------------------ #
     # Step 2: generate_search_strategy
-    # ------------------------------------------------------------------ #
     def generate_search_strategy(self, signals: dict[str, Any]) -> dict[str, Any]:
         prompt = prompts.GENERATE_SEARCH_STRATEGY.format(
             signals=json.dumps(signals, indent=2)
@@ -102,7 +96,9 @@ class RecruitingPipeline:
             seniority = (strategy.get("seniority") or "").strip()
             note = f"seniority={seniority or 'unspecified'}"
             if not seniority or seniority.lower() in {"unspecified", "unknown", "n/a"}:
-                strategy["seniority"] = "Mid to Senior (inferred; JD lacked explicit signal)"
+                strategy["seniority"] = (
+                    "Mid to Senior (inferred; JD lacked explicit signal)"
+                )
                 note = (
                     "seniority unspecified in JD; defaulted to 'Mid to Senior (inferred)' "
                     "per documented policy"
@@ -113,9 +109,7 @@ class RecruitingPipeline:
             self._log_step(2, "generate_search_strategy", 1, "fail", str(exc))
             raise PipelineError(f"Step 2 failed: {exc}") from exc
 
-    # ------------------------------------------------------------------ #
     # Step 3: generate_boolean_query
-    # ------------------------------------------------------------------ #
     def generate_boolean_query(self, strategy: dict[str, Any]) -> dict[str, Any]:
         prompt = prompts.GENERATE_BOOLEAN_QUERY.format(
             strategy=json.dumps(strategy, indent=2)
@@ -139,9 +133,7 @@ class RecruitingPipeline:
             self._log_step(3, "generate_boolean_query", 1, "fail", str(exc))
             raise PipelineError(f"Step 3 failed: {exc}") from exc
 
-    # ------------------------------------------------------------------ #
     # Step 4: generate_outreach_message (with self-correction loop)
-    # ------------------------------------------------------------------ #
     def generate_outreach_message(
         self,
         signals: dict[str, Any],
@@ -172,8 +164,12 @@ class RecruitingPipeline:
             try:
                 result = self.llm.call_json(prompt)
             except Exception as exc:
-                self._log_step(4, "generate_outreach_message", attempt, "fail", str(exc))
-                feedback = f"Previous attempt threw an error: {exc}. Return valid JSON only."
+                self._log_step(
+                    4, "generate_outreach_message", attempt, "fail", str(exc)
+                )
+                feedback = (
+                    f"Previous attempt threw an error: {exc}. Return valid JSON only."
+                )
                 last_attempt = {"error": str(exc)}
                 continue
 
@@ -181,7 +177,7 @@ class RecruitingPipeline:
             specific_detail = (result.get("specific_detail") or "").strip()
             char_count = len(message)
 
-            # --- Validation -------------------------------------------------
+            # Validation
             length_ok = char_count <= OUTREACH_CHAR_LIMIT
             detail_ok = bool(specific_detail) and (
                 specific_detail.lower() in jd.lower()
@@ -221,7 +217,7 @@ class RecruitingPipeline:
                     logger.warning("Guardrail flagged outreach: %s", bias_warning)
                 return last_attempt
 
-            # --- Failed: build feedback for next attempt --------------------
+            # Failed: build feedback for next attempt
             note = "; ".join(failure_reasons)
             self._log_step(4, "generate_outreach_message", attempt, "retry", note)
             feedback = (
@@ -245,9 +241,7 @@ class RecruitingPipeline:
             f"Last attempt: {last_attempt}"
         )
 
-    # ------------------------------------------------------------------ #
     # Step 5: generate_candidate_summary
-    # ------------------------------------------------------------------ #
     def generate_candidate_summary(
         self,
         signals: dict[str, Any],
@@ -275,9 +269,7 @@ class RecruitingPipeline:
             self._log_step(5, "generate_candidate_summary", 1, "fail", str(exc))
             raise PipelineError(f"Step 5 failed: {exc}") from exc
 
-    # ------------------------------------------------------------------ #
     # Orchestration
-    # ------------------------------------------------------------------ #
     def run(self, jd: str, hm_notes: Optional[str] = None) -> dict[str, Any]:
         signals = self.extract_jd_signals(jd, hm_notes)
         strategy = self.generate_search_strategy(signals)
@@ -289,9 +281,7 @@ class RecruitingPipeline:
         )
 
         # Strip internal helper fields before serializing.
-        clean_strategy = {
-            k: v for k, v in strategy.items() if not k.startswith("_")
-        }
+        clean_strategy = {k: v for k, v in strategy.items() if not k.startswith("_")}
         clean_outreach = {
             "outreach_message": outreach["outreach_message"],
             "specific_detail": outreach["specific_detail"],

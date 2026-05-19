@@ -42,17 +42,13 @@ class LLMClient:
         self.model = model
         self.max_retries = max_retries
 
-    # ------------------------------------------------------------------ #
     # Public
-    # ------------------------------------------------------------------ #
     def call_json(self, prompt: str, system: str | None = None) -> dict[str, Any]:
         """Call the LLM and parse the response as JSON."""
         raw = self._call(prompt, system=system)
         return self._parse_json(raw)
 
-    # ------------------------------------------------------------------ #
     # Internal
-    # ------------------------------------------------------------------ #
     def _call(self, prompt: str, system: str | None = None) -> str:
         """Call the LLM with simple exponential backoff for transient errors."""
         last_exc: Exception | None = None
@@ -67,11 +63,13 @@ class LLMClient:
                     kwargs["system"] = system
                 resp = self.client.messages.create(**kwargs)
                 # Concatenate text blocks (ignore any tool_use blocks here).
-                parts = [b.text for b in resp.content if getattr(b, "type", "") == "text"]
+                parts = [
+                    b.text for b in resp.content if getattr(b, "type", "") == "text"
+                ]
                 return "\n".join(parts).strip()
             except (anthropic.APIConnectionError, anthropic.RateLimitError) as exc:
                 last_exc = exc
-                wait = 2 ** attempt
+                wait = 2**attempt
                 logger.warning(
                     "Transient LLM error (attempt %d/%d): %s; retrying in %ds",
                     attempt + 1,

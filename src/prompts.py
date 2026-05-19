@@ -8,9 +8,7 @@ Each prompt:
     on a stable structure instead of free text.
 """
 
-# --------------------------------------------------------------------------- #
 # Step 1: extract_jd_signals
-# --------------------------------------------------------------------------- #
 EXTRACT_JD_SIGNALS = """You are a senior technical recruiter parsing a Job Description (JD).
 
 Extract structured signals from the JD below. Be concrete. If a signal is not present
@@ -40,9 +38,7 @@ HIRING MANAGER NOTES (optional context):
 """
 
 
-# --------------------------------------------------------------------------- #
 # Step 2: generate_search_strategy
-# --------------------------------------------------------------------------- #
 GENERATE_SEARCH_STRATEGY = """You are a recruiter building a sourcing plan.
 
 Given the extracted JD signals below, produce a candidate search strategy.
@@ -67,10 +63,7 @@ JD SIGNALS:
 {signals}
 """
 
-
-# --------------------------------------------------------------------------- #
 # Step 3: generate_boolean_query
-# --------------------------------------------------------------------------- #
 GENERATE_BOOLEAN_QUERY = """You are building a LinkedIn Recruiter / sourcing-tool Boolean query
 based on the search strategy below.
 
@@ -95,9 +88,7 @@ SEARCH STRATEGY:
 """
 
 
-# --------------------------------------------------------------------------- #
 # Step 4: generate_outreach_message (with self-correction feedback)
-# --------------------------------------------------------------------------- #
 GENERATE_OUTREACH = """You are writing a recruiting outreach message for a top-of-funnel candidate.
 
 Hard constraints:
@@ -133,9 +124,7 @@ SEARCH STRATEGY:
 """
 
 
-# --------------------------------------------------------------------------- #
 # Step 5: generate_candidate_summary
-# --------------------------------------------------------------------------- #
 GENERATE_CANDIDATE_SUMMARY = """You are generating a candidate summary card for a recruiter's pipeline view.
 
 The candidate is hypothetical (mock data) but the reasoning must be real:

@@ -15,9 +15,7 @@ from __future__ import annotations
 import re
 
 
-# --------------------------------------------------------------------------- #
 # Boolean query validator
-# --------------------------------------------------------------------------- #
 def validate_boolean_query(query: str) -> dict:
     """
     Deterministic checks on a Boolean sourcing query.
@@ -65,21 +63,27 @@ def validate_boolean_query(query: str) -> dict:
     }
 
 
-# --------------------------------------------------------------------------- #
 # Outreach bias guardrail
-# --------------------------------------------------------------------------- #
 # Heuristic patterns for language that would be inappropriate in recruiting outreach.
 # This is intentionally narrow — flagging false positives is better than missing real ones,
 # and a human reviews the flag.
 _BIAS_PATTERNS: list[tuple[str, re.Pattern]] = [
-    ("age-coded language",
-     re.compile(r"\b(young|youthful|energetic|digital native|recent grad|seasoned veteran)\b", re.IGNORECASE)),
-    ("gendered pronouns/terms",
-     re.compile(r"\b(guys|brotherhood|salesman|salesmen|manpower)\b", re.IGNORECASE)),
-    ("'culture fit' language",
-     re.compile(r"\bculture fit\b", re.IGNORECASE)),
-    ("compensation/salary mention (premature)",
-     re.compile(r"\$\d|\bsalary\b|\bequity\b|\bcomp(?:ensation)?\b", re.IGNORECASE)),
+    (
+        "age-coded language",
+        re.compile(
+            r"\b(young|youthful|energetic|digital native|recent grad|seasoned veteran)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "gendered pronouns/terms",
+        re.compile(r"\b(guys|brotherhood|salesman|salesmen|manpower)\b", re.IGNORECASE),
+    ),
+    ("'culture fit' language", re.compile(r"\bculture fit\b", re.IGNORECASE)),
+    (
+        "compensation/salary mention (premature)",
+        re.compile(r"\$\d|\bsalary\b|\bequity\b|\bcomp(?:ensation)?\b", re.IGNORECASE),
+    ),
 ]
 
 
